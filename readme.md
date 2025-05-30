@@ -164,7 +164,7 @@ Wichtig ist bei der [Installation](https://docs.edgeimpulse.com/docs/tools/edge-
 
 Gerade wegen der teils aufwändigen Installation ist die CLI für unerfahrene Nutzer nicht zu empfehlen. Hier bietet sich der integrierte [Uploader im Studio](https://docs.edgeimpulse.com/docs/edge-impulse-studio/data-acquisition/uploader) an. Dennoch bieten einige Funktionen der CLI – wie der [Impulse Runner](https://docs.edgeimpulse.com/docs/tools/edge-impulse-cli/cli-run-impulse) – viele Vorteile, ebenso wie der Uploader. Das Tool lohnt sich daher besonders für erfahrene Nutzer.
 
-Alternativ kann die CLI auch unter [WSL](https://docs.edgeimpulse.com/docs/tools/edge-impulse-cli/cli-run-impulse) installiert werden.
+Alternativ kann die CLI auch unter [WSL](https://docs.edgeimpulse.com/docs/tools/edge-impulse-cli/cli-installation#installation-windows-subsystem-for-linux-wsl) installiert werden.
 
 ##### OpenMV IDE
 
@@ -309,7 +309,7 @@ Im folgenden Abschnitt werden verschiedene Möglichkeiten zum [Deployen](https:/
 
 Die bekannteste Möglichkeit zur Programmierung von Arduino-Boards ist die Nutzung der [Arduino-Sprache](https://docs.arduino.cc/language-reference/), einer stark vereinfachten Variante von C/C++, die speziell für Einsteiger optimiert wurde. Die sogenannte Arduino Core Library bietet grundlegende Funktionen zur Ansteuerung von [I/O-Pins](https://docs.arduino.cc/language-reference/funktionen/digital-io/digitalread/), mathematischen Operationen und vielen weiteren Basisfunktionen.
 
-**Edge Impulse** bietet die Möglichkeit, den entwickelten [Impulse](https://docs.edgeimpulse.com/docs/edge-impulse-studio/impulse-design-and-experiments) als optimierten Quellcode im Format einer [Arduino-Bibliothek](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/) bereitzustellen. Diese kann direkt in ein Arduino-Projekt eingebunden werden – entweder durch eigene Implementierung oder über eines der mitgelieferten Beispielprojekte (z. B. das `"static buffer"` Beispiel oder das für dieses Projekt angepasste [`nicla_vision_camera.ino`](src\nicla_vision_camera.ino)).
+**Edge Impulse** bietet die Möglichkeit, den entwickelten [Impulse](https://docs.edgeimpulse.com/docs/edge-impulse-studio/impulse-design-and-experiments) als optimierten Quellcode im Format einer [Arduino-Bibliothek](https://docs.arduino.cc/software/ide-v1/tutorials/installing-libraries/) bereitzustellen. Diese kann direkt in ein Arduino-Projekt eingebunden werden – entweder durch eigene Implementierung oder über eines der mitgelieferten Beispielprojekte (z. B. das `"static buffer"` Beispiel oder das für dieses Projekt angepasste [`nicla_vision_camera.ino`](src/nicla_vision_camera.ino)).
 
 ---
 
@@ -319,7 +319,7 @@ Beim Export über das Edge Impulse Studio können verschiedene Optionen gewählt
 
 - **Quantisierung**: Die Umwandlung von Floating Point 32 (FP32) in Integer 8 (INT8) reduziert Speicherverbrauch und Latenz, kann aber die Genauigkeit beeinträchtigen. Dabei handelt es sich um eine [Post-Training-Quantisierung](https://applydata.io/de/quantisierung-in-der-ki/).
   
-  ![Deployment Arduino](img\ArduinoDeploymentEON.png)
+  ![Deployment Arduino](img/ArduinoDeploymentEON.png)
 
   Die Abbildung zeigt, dass das INT8-Modell nur etwa ein Drittel des RAMs des FP32-Modells benötigt – bei etwas geringerer Genauigkeit. Der genaue Einfluss auf die Genauigkeit variiert je nach Modell.
 
@@ -363,11 +363,11 @@ Einfach gesagt handelt es sich bei dieser Methode um das Äquivalent zur Nutzung
 
 Das Deployen als OpenMV-Library ist sehr unkompliziert. Man wählt im Edge Impulse Studio einfach die entsprechende Variante aus – es sind dabei keine weiteren Einstellungen nötig.
 
-![Deployen OpenMV Library](img\ArduinoDeployOpenMV.png)
+![Deployen OpenMV Library](img/ArduinoDeployOpenMV.png)
 
 Nach dem Export erhält man eine ZIP-Datei mit drei Elementen:
 
-![ZIP Library Inhalt](img\OpenMVzip.png)
+![ZIP Library Inhalt](img/OpenMVzip.png)
 
 - `ei_image_classification.py`: Enthält den MicroPython-Code zur Ausführung des Modells mit der OpenMV IDE.
 - `labels.txt`: Die Liste der erkannten Klassenlabels.
@@ -403,7 +403,7 @@ Das Flashen der Firmware erfolgt über die OpenMV IDE:
 
 Hier kann man beim Export zwischen INT8 und Float32 Modellen wählen. Leider stellte sich im Test heraus, dass weder für das Nicla Vision noch den Portenta H7 eine passende Firmware-Datei enthalten war.
 
-![Firmware fehler](img\firmwareFehler.png)
+![Firmware fehler](img/firmwareFehler.png)
 
 Daher konnte diese Variante leider nicht erfolgreich getestet werden. Vermutlich reicht der verfügbare Flash-/RAM-Speicher der Arduino-Versionen dieser Boards nicht aus, um die generierte Firmware korrekt zu laden.
 
@@ -573,7 +573,7 @@ Ein bereits bei der Vorstellung des [Nicla Vision](#nicla-vision) angesprochenes
 
 Nach den geschätzten Werten von Edge Impulse schien die Größe zu passen:
 
-![Daten Erstes Bild](img\BildErstesTraining.png)
+![Daten Erstes Bild](img/BildErstesTraining.png)
 
 Wie aber bereits in der Beschreibung des Deployens als fertige [Firmware](#device-firmware) erwähnt, verbraucht das System mehr RAM-Speicher, als in dieser Schätzung angegeben wird. Dies dürfte mehrere Ursachen haben: Die Schätzung bezieht sich nur auf die Größe des Impulses – also alle Vorverarbeitungsstufen und das eigentliche Modell – nicht aber auf Operationen, die vorher oder danach ausgeführt werden. So wird beispielsweise die Bildaufnahme vorher nicht mit einbezogen, da hier ein Buffer zum Einsatz kommt, wie man an manchen Fehlermeldungen erkennen kann.
 
@@ -595,7 +595,7 @@ Außerdem ist MicroPython, auch wenn es für Mikrocontroller optimiert wurde, im
 
 Die Verwendung des [Garbage Collectors](https://docs.micropython.org/en/latest/reference/constrained.html#control-of-garbage-collection) (gc) half ebenfalls nicht, da der vorhandene Speicher schlicht zu begrenzt war:
 
-![GC in MicroPython](img\microPythonGC.png)
+![GC in MicroPython](img/microPythonGC.png)
 
 Zudem weist der Nicla Vision standardmäßig dem Cortex-M7 nur 512 KB Speicher zu – dies lässt sich nicht, wie bei [C/C++](#nicla-vision), manuell anpassen.
 
@@ -606,7 +606,7 @@ Zudem weist der Nicla Vision standardmäßig dem Cortex-M7 nur 512 KB Speicher
 So ist der Speicher nartürlich noch zusätzlich "eingeschränkt" eine tatsache die der neue Nutzer nicht kennt und auch nicht erwartet. So wird die als so "einfach" bekannte Sprache MicroPython für diese anwedung schnell zur Schwierigkeit.in kombiantion mit der versteckten Informartion darüber ist dies eine ernstahfte schwierigkeit. Die nutzung auf dem [h7](#portenta-h7--mit-vision-shield) wurde getsetet allerdings brachte die graysacle kammera nartürlich keine möglichkeit der erknenung von Fabigen Objketen mit.
 
 Ein kruzer test gab genau diese erkentniss wieder:
-![GraysacleTest](img\GraysacleTest.png)
+![GraysacleTest](img/GraysacleTest.png)
 Wir sehen gut das fast alle werte in der Spalte uncertain liegen.
 Da das modell die unterschiede nicht erkennen kann rät das Model eigentlich nur 
 
@@ -623,7 +623,7 @@ Zu Beginn war der Plan, mit Variante 1 zu arbeiten. Hier waren jedoch irgendwann
 Ein deutliches Overfitting war zu erkennen; bereits ein leicht verändertes Lichtverhältnis führte zu schlechten Ergebnissen.
 
 Beispiel eines der ersten V1-Modelle:
-![Erste Versuche V1 Modell](img\V1Modell_ErsteVersuche.png)
+![Erste Versuche V1 Modell](img/V1Modell_ErsteVersuche.png)
 
 Auf dem Bild ist gut zu erkennen, dass eine Verzerrung (Bias) bei der Klassifikation von blauen und grünen Quadraten vorliegt. Insbesondere werden grüne Quadrate häufig fälschlich als blaue erkannt. Auch bei grünen Kreisen tritt ein ähnlicher Effekt auf, jedoch deutlich schwächer.
 
@@ -649,7 +649,7 @@ Im nachfolgenden Abschnitt soll ein weiterer wichtiger Aspekt neben dem ML-Model
 
 Für den ersten Schritt wurde zunächst das Pinlayout des [Nicla Vision](#nicla-vision) betrachtet:
 
-![Pinout](img\Pinout_NiclaVision_latest.png)  
+![Pinout](img/Pinout_NiclaVision_latest.png)  
 [Quelle](https://content.arduino.cc/assets/Pinout_NiclaVision_latest.png)
 
 Hier zeigt sich, dass eine Reihe von Pins grundsätzlich zum Anschließen geeignet ist. Zunächst ist der sechste Pin auf der rechten Seite zu nennen – es handelt sich um den GND-Pin, welcher als Masseanschluss zwingend benötigt wird. Auf der linken Seite befindet sich eine Reihe analoger Pins. Ursprünglich war geplant, diese zur Signalausgabe zu verwenden. Tests mit A0 und A1 zeigten jedoch, dass diese – selbst bei Low-Zustand – noch ca. 1,1V Spannung führten. Da analoge Pins für variable Spannungen ausgelegt sind, sind sie für diese einfache Aufgabe nicht optimal. Digitale Pins mit reinem High-/Low-Zustand sind hier besser geeignet.
@@ -669,29 +669,29 @@ Zur Verbindung mit dem Board wurden verschiedene Methoden in Betracht gezogen:
 
 - **2,54mm Steckleiste + Breadboard:**  
   Diese Variante erwies sich in der Praxis als unzuverlässig.  
-  ![Test 2,54mm Steckleiste](img\PXL_20250122_111435993.jpg)  
+  ![Test 2,54mm Steckleiste](img/PXL_20250122_111435993.jpg)  
   Die mechanische Spannung reichte nicht aus, um eine stabile Verbindung herzustellen – wie das nicht leuchtende LED-Beispiel zeigt.
 
 - **1,27mm Doppelsteckleiste:**  
   In [diesem Arduino-Dokument](https://docs.arduino.cc/resources/pinouts/ABX00051-full-pinout.pdf) und [GitHub-Thread](https://github.com/arduino/ArduinoCore-mbed/issues/479) wird beschrieben, wie der Nicla Vision zwischen zwei 1,27mm-Leisten eingeklemmt werden kann.  
-  ![1,27mm](img\PXL_20250317_105845759.jpg)  
+  ![1,27mm](img/PXL_20250317_105845759.jpg)  
   Diese Lösung funktioniert mit etwas Übung zuverlässig. Allerdings lässt die Federkraft mit der Zeit nach, was zu Wackelkontakten führen kann. Für Tests war die Methode jedoch ausreichend.
 
 - **Krokodilklemmen und alternative Kabel:**  
   Varianten mit Krokodilklemmen oder [Entwicklungskabeln](https://www.reichelt.de/de/de/shop/produkt/entwicklerboards_-_steckbrueckenkabel_50cm_20_kabel_einzeln-238965#closemodal) funktionierten ebenfalls, waren aber mechanisch instabil oder unpraktisch für das Gehäuse.  
-  ![Abgewinkelter Stecker](img\PXL_20250129_142423666.MP.jpg)  
+  ![Abgewinkelter Stecker](img/PXL_20250129_142423666.MP.jpg)  
   Ein Vorteil der verwendeten Steckleistenvariante war die Möglichkeit, abgewinkelte Stecker zu verwenden, die sich gut in ein vorhandenes Gehäuse integrieren ließen – im Gegensatz zu Krokodilklemmen, die z. B. bei der Montage an einem Stativ hinderlich wären.
 
 **Verbindung mit der Control Box:**
 
-![Control box](img\CotrolBox.png)
+![Control box](img/CotrolBox.png)
 
 Neben der Verbindung zum Nicla Vision musste die Control Box korrekt angesteuert werden. Das Fließband wird – anstelle des Niryo-Roboters – direkt an Anschluss Nr. 1 angeschlossen. Am Anschluss Nr. 2 werden die Signalkabel vom Arduino angebracht. Anschluss Nr. 5 ist für die Spannungsversorgung per Netzteil vorgesehen, um ausreichend Strom für den Motor bereitzustellen. Theoretisch könnte der Arduino auch über Anschluss Nr. 2 mit Strom (5V) versorgt werden, dies ist jedoch [nicht empfohlen](https://docs.niryo.com/accessories/conveyor/electrical-interface/#section-header-two-d91e3).
 
 Ursprünglich ist dieser Anschluss für Infrarotsensoren vorgesehen, kann jedoch auch mit jedem anderen Gerät verwendet werden, das ein geeignetes Signal liefert.
 
 Ein Test mit einem anderen Arduino zeigte die korrekte Belegung:
-![Arduino Test](img\PXL_20250311_135359468.jpg)  
+![Arduino Test](img/PXL_20250311_135359468.jpg)  
 ![Verkabelung](img/PXL_20250311_140942832.jpg)
 
 - Linkes schwarzes Kabel = Masse (GND)  
@@ -703,7 +703,7 @@ Das [Potentiometer](https://docs.niryo.com/accessories/conveyor/use-the-conveyor
 
 Eine softwareseitige Steuerung von Geschwindigkeit oder Richtung über den Nicla Vision ist nicht vorgesehen. In einer [veralteten Version der Control Box](https://archive-docs.niryo.com/applications/ned/v1.0.4/en/source/tutorials/control_conveyor_belt_arduino.html) war dies durch interne Modifikationen möglich, was bei der [aktuellen Version](https://docs.niryo.com/accessories/conveyor/electrical-interface/) nicht mehr vorgesehen ist.
 
-Für das Projekt wurde schlussendlich **GPIO2** als digitaler Pin verwendet, dieser entspricht dem [INT-Wert Zwei](src\nicla_vision_camera.ino#L30). Die Konfiguration erfolgt in der `setup()`-Funktion im [nicla_vision_camera](src\nicla_vision_camera.ino#L126)-Skript, die Ansteuerung in der `loop()`-Funktion ([siehe hier](src\nicla_vision_camera.ino#L189)).
+Für das Projekt wurde schlussendlich **GPIO2** als digitaler Pin verwendet, dieser entspricht dem [INT-Wert Zwei](src/nicla_vision_camera.ino#L30). Die Konfiguration erfolgt in der `setup()`-Funktion im [nicla_vision_camera](src/nicla_vision_camera.ino#L126)-Skript, die Ansteuerung in der `loop()`-Funktion ([siehe hier](src/nicla_vision_camera.ino#L189)).
 
 ---
 
@@ -734,7 +734,7 @@ Wie beschrieben, kann nach der Konfiguration ein Training ausgeführt werden. Hi
 
 In diesem Schritt sollten die Trainings-Settings zunächst nicht verändert oder es sollten sich an die [vorgeschlagenen Werte](https://docs.edgeimpulse.com/docs/tutorials/end-to-end-tutorials/computer-vision/image-classification) gehalten werden. Nach Beendigung des Trainings zeigt Edge Impulse eine Confusion Matrix, in der die Ergebnisse des Trainings mit dem Validierungsdatensatz angezeigt werden. Zusätzlich werden weitere Metriken angezeigt, die Auskunft über Details geben können.
 
-![ConfusionMatrix](img\ConfiussonMatrix.png)
+![ConfusionMatrix](img/ConfiussonMatrix.png)
 
 Hier zu sehen ist ein frühes Ergebnis eines der ersten Trainings. Zu erkennen ist eine relativ breite Streuung bei manchen Klassen – so gibt es häufiger Verwechslungen zwischen blauen und grünen Quadraten. Besonders Blau wurde hier in 25 Prozent der Fälle für Grün gehalten.
 
@@ -750,10 +750,10 @@ Da es sich um ein sehr frühes Modell ohne Optimierungen handelt, ist das Ergebn
 
 Zudem kann jedes Ergebnis einzeln betrachtet werden, um so genauer erkennen zu können, wo die Probleme genau liegen.
 
-![Ein Testergebnis im Detail](img\TestErgebnissDetail.png)  
+![Ein Testergebnis im Detail](img/TestErgebnissDetail.png)  
 Hier ein exemplarisches Beispiel eines richtig erkannten blauen Quadrats.
 
-![Falsch erkanntes Objekt](img\TestFlaschErkannt.png)  
+![Falsch erkanntes Objekt](img/TestFlaschErkannt.png)  
 Im Vergleich ein irrtümlich als grünes Quadrat erkanntes blaues Quadrat. Mögliche Ursachen für die Falscherkennung könnten die stärkere Reflexion von Licht sowie die andere Ausrichtung sein, die näher am Rand des Bildes liegt. Außerdem wirkt das Modell insgesamt unsicher – erkennbar an mehreren Werten im 0.1-Bereich.
 
 Die identische Ansicht erhält man auch bei der Live Classification – hier wird dann aber ein gerade fotografiertes Bild klassifiziert.
@@ -798,35 +798,35 @@ Im Folgenden wird zunächst der endgültige Aufbau des Systems beschrieben, gefo
 
 Der endgültige Aufbau basiert auf dem im Abschnitt über die [Elektrische Verbindung](#herausforderungen-einer-stabilen-elektrischen-verbindung) beschriebenen Anschluss des Nicla Visions an den [Niryo Conveyor Belt](https://niryo.com/product/conveyor-belt/). Hierbei wurde weiterhin die bereits beschriebene [1,27mm Steckleiste](https://www.reichelt.de/de/de/shop/produkt/stiftleisten_2_54_mm_1x08_gerade-119884) verwendet und ein [3D-gedrucktes Gehäuse](https://www.printables.com/model/208400-arduino-nicla-vision-case/files) modifiziert, sodass die Steckleiste hineinpasst. Dies wurde an einem flexiblen Arm mit [Schraubgewinde](https://de.wikipedia.org/wiki/Stativ#Stativgewinde) montiert.
 
-![1,27mm](img\PXL_20250327_110402429.jpg) 
+![1,27mm](img/PXL_20250327_110402429.jpg) 
 
-An dem Ground Pin wird das schwarze Kabel montiert; das blaue Kabel ist der [GPIO Pin 2](#herausforderungen-einer-stabilen-elektrischen-verbindung). Dieser Pin ist auch im [Code](src\nicla_vision_camera.ino#L30) hinterlegt worden. Eine Änderung auf einen anderen geeigneten Pin ist aber möglich. Die Stromversorgung erfolgt über den USB-Anschluss. Über diesen läuft außerdem das Signal an den [Serial Monitor](src\nicla_vision_camera.ino#L105). Die Nutzung ohne diesen ist möglich, dann muss aber [Zeile 107](src\nicla_vision_camera.ino#L107) entfernt werden, da das System auf eine Verbindung wartet.
+An dem Ground Pin wird das schwarze Kabel montiert; das blaue Kabel ist der [GPIO Pin 2](#herausforderungen-einer-stabilen-elektrischen-verbindung). Dieser Pin ist auch im [Code](src/nicla_vision_camera.ino#L30) hinterlegt worden. Eine Änderung auf einen anderen geeigneten Pin ist aber möglich. Die Stromversorgung erfolgt über den USB-Anschluss. Über diesen läuft außerdem das Signal an den [Serial Monitor](src/nicla_vision_camera.ino#L105). Die Nutzung ohne diesen ist möglich, dann muss aber [Zeile 107](src/nicla_vision_camera.ino#L107) entfernt werden, da das System auf eine Verbindung wartet.
 
 Der Nicla Vision wird direkt über dem Fließband montiert. 
-![Montage Nicla Vision über Fließband](img\PXL_20250327_130854160.jpg) 
+![Montage Nicla Vision über Fließband](img/PXL_20250327_130854160.jpg) 
 
 Dabei wird darauf geachtet, dass die Kamera möglichst die gesamte Breite des Fließbandes abdeckt, aber nicht den Bereich außerhalb mit aufnimmt, da dies Einfluss auf die Qualität der Klassifizierung haben kann. Dabei sollte die Kamera möglichst senkrecht auf die Fläche blicken. Das Gehäuse sollte also etwa parallel zum Band liegen.
 
 Zur Feineinstellung können die [OpenMV IDE](#openmv-ide) oder [Edge Impulse Studio](#edge-impulse-cli) verwendet werden.
 
 Die Kabel werden zunächst zu einem [Breadboard](https://de.wikipedia.org/wiki/Steckplatine) geführt, da zwischen die Kabel, die zur Control-Box des Fließbandes führen, noch ein Multimeter zur Kontrolle parallel geschaltet wird, um mögliche Wackelkontakte zuverlässiger erkennen zu können.
-![verkabelung](img\PXL_20250327_110400337.jpg) 
+![verkabelung](img/PXL_20250327_110400337.jpg) 
 
 Links sieht man die Messsonden des Multimeters; oben die angeschlossene Control-Box, dabei am linken Anschluss GND und am rechten Anschluss das Signal. Das Potentiometer ist nicht in Nullstellung, sodass bei Ankunft eines Signals das Fließband fährt – was der Fall ist, wenn kein Objekt erkannt wird. Rechts erkennt man den Stativfuß und die Kabel, die hoch zum Nicla Vision führen. 
 
-![Gesamtbild Aufbau](img\PXL_20250327_111851122.jpg)
+![Gesamtbild Aufbau](img/PXL_20250327_111851122.jpg)
 
 Hier sieht man die komplette Aufmachung. Der Wert auf dem Multimeter zeigt an, dass gerade kein Objekt erkannt wird und ein Signal ausgegeben wird. Wäre dies nicht der Fall, läge die Spannung bei etwa 1,0 V. Da die LED ebenfalls deaktiviert ist (am Nicla Vision), zeigt dies, dass alles richtig verbunden ist.
 
 Wenn die LED leuchtet, aber die Spannung 1,0 V anzeigt, weist dies auf einen Wackelkontakt hin. Wenn die LED leuchtet und das Multimeter 1,0 V anzeigt, wird ein Objekt erkannt. In diesem Fall bleibt das Band stehen.
 
-Je nach Geschwindigkeit des Bandes kann der zeitliche Abstand zwischen zwei Bildern variiert werden. Bei sehr langsamer Bewegung kann dieser groß sein, etwa die Standardzeit von 2 Sekunden. Bei höheren Geschwindigkeiten muss dieser Wert dann immer weiter verringert werden. Bei maximaler Geschwindigkeit haben sich 0,125 Sekunden als zuverlässig dargestellt. Der Wert kann ganz einfach im [Code](src\nicla_vision_camera.ino#L145) geändert werden; dabei wird der Wert in Millisekunden angegeben. Wichtig ist, dass die Zeit hier nicht mit der Angabe von Edge Impulse unterscheidet wird.
+Je nach Geschwindigkeit des Bandes kann der zeitliche Abstand zwischen zwei Bildern variiert werden. Bei sehr langsamer Bewegung kann dieser groß sein, etwa die Standardzeit von 2 Sekunden. Bei höheren Geschwindigkeiten muss dieser Wert dann immer weiter verringert werden. Bei maximaler Geschwindigkeit haben sich 0,125 Sekunden als zuverlässig dargestellt. Der Wert kann ganz einfach im [Code](src/nicla_vision_camera.ino#L145) geändert werden; dabei wird der Wert in Millisekunden angegeben. Wichtig ist, dass die Zeit hier nicht mit der Angabe von Edge Impulse unterscheidet wird.
 
 Das System ist unabhängig vom Bereich des Fließbandes nutzbar, und auch die Laufrichtung hat keinen Einfluss. Nur die Orientierungsmärkungen für den Niryo2 sollten nicht im Bild sein, da sie zu Fehlern führen könnten. 
-![Schätzung](img\schätzung.png) 
+![Schätzung](img/schätzung.png) 
 Um Sicherheit zu schaffen, sollte vielleicht auch noch etwas Puffer eingerechnet werden; mit 125 ms ist hier mehr als genug Spielraum.
 
-Wenn ausgewählt werden soll, bei welchen Objekten das Band angehalten wird und bei welchen Elementen nicht, kann die Bedingung in [Zeile 197](src\nicla_vision_camera.ino#L197) angepasst werden. Standardmäßig wird bei allen bisher bekannten Quadraten angehalten, also rot, grün und blau.
+Wenn ausgewählt werden soll, bei welchen Objekten das Band angehalten wird und bei welchen Elementen nicht, kann die Bedingung in [Zeile 197](src/nicla_vision_camera.ino#L197) angepasst werden. Standardmäßig wird bei allen bisher bekannten Quadraten angehalten, also rot, grün und blau.
 
 
 
@@ -838,15 +838,15 @@ Zu Beginn der Entwicklung wurde vor allem auf die V1 Modelle konzentriert, da di
 
 Dabei waren durchaus ordentliche Ergebnisse in bestimmten Bereichen erreichbar, allerdings gerade mit grünen Quadraten eine deutliche Schwäche erkennbar.
 
-![Test V1 modell](img\V1ModellOhneWeitereKlasse.png)
+![Test V1 modell](img/V1ModellOhneWeitereKlasse.png)
 
 Jede Optimierung zur besseren Erkennung führte zu einer Verschlechterung in einem anderen Bereich, sodass das Gesamtergebnis darunter litt. Mit herkömmlichen Mitteln war hier also mit der Zeit eine Grenze erreicht, die nicht mehr zu überschreiten war. Zu diesem Zeitpunkt kam dann ein zufälliger Fehler zustande, der sich als deutliche Verbesserung darstellte. So wurde ein Bild falsch gelabelt (ein Leerzeichen mehr), sodass es nun zwei Klassen gab: quadrat-grün. Unerwarteterweise brachte dies ohne weitere Änderungen ein besseres Ergebnis bei grünen Quadraten, gleichzeitig aber schlechtere Ergebnisse bei blauen Quadraten.
 
-![Zufall mit 2 Klassen](img\erstesV1modellMit2Klassen.png)
+![Zufall mit 2 Klassen](img/erstesV1modellMit2Klassen.png)
 
 Hier ist der allererste Test mit diesen beiden Klassen zu sehen. Optimal ist das Ergebnis sicherlich noch nicht, aber ein deutlicher Fortschritt. Erklären lässt sich dieser Fall damit, dass durch die zwei Klassen – bei eigentlich kleinen Objekten – das Modell mehr darauf konzentrieren muss, die feinen Unterschiede zu erkennen und zu erlernen. Durch die deutlich überzahl der Trainingsdaten wird ein Objekt trotzdem als die eigentliche Klasse erkannt und nie als die Klasse mit nur einem Bild. Da sich das Modell damit allerdings mehr auf Grün konzentriert, leidet etwas die Farbe Blau. Allerdings ist diese Abnahme geringer als der gesamte Zugewinn an anderer Stelle. Weitere Tests mit weiteren zweiten Klassen für den gleichen Typ brachten hier jedoch keinen weiteren Erfolg, da hiermit der vorherige Fortschritt wieder hergestellt würde. Andere Optimierungen brachten hingegen mehr Erfolg. Nach weiteren Tests kam am Ende ein durchaus vernünftiges Ergebnis heraus. Ein Ungleichgewicht blieb aber ein Problem und ließ sich nie komplett auflösen. So ergab die weitere Optimierung einen Rückgang an anderer Stelle, etwa bei blauen Kreisen.
 
-![BestesV1Ergebniss](img\BestesErgebnissV1.png)
+![BestesV1Ergebniss](img/BestesErgebnissV1.png)
 
 Dies war wohl das beste absolute Ergebnis. Man erkennt deutlich den Anstieg bei den grünen Quadraten gleichzeitig mit einem Verlust im Bereich der blauen Kreise. Die Unterschiede der V1 Modelle waren erwartungsgemäß auch für die quantisierten Modelle gegeben, sodass je größer ein Modell war, desto besser das Ergebnis ausfiel.
 
@@ -866,13 +866,13 @@ Das bedeutet, dass insbesondere MobileNet-Modelle unter layer-wise Quantisierung
 Da dieser Aspekt nur einen kleinen Teil des Projekts betrifft und keinen Einfluss auf den Erfolg hat, wird hier nicht näher darauf eingegangen – dennoch war es spannend, diesen Effekt zu beobachten und seinen Ursachen nachzugehen.
 
 alpha = 0.35 nach der Quantisierung:
-![alpah = 0.35](img\V2_0.35Quantisiert.png)
+![alpah = 0.35](img/V2_0.35Quantisiert.png)
 
 alpha = 0.05 nach der Quantisierung:
-![alpha = 0.05](img\V2_0.05.png)
+![alpha = 0.05](img/V2_0.05.png)
 
 Das beste in den Tests erzielte Ergebnis mit einem MobileNetV2-Modell bei alpha = 0.1 lag bei über 80 % Genauigkeit.
-![alpha = 0.1](img\V2_0.1Opt.png)
+![alpha = 0.1](img/V2_0.1Opt.png)
 
 Im realen Einsatz zeigte sich jedoch, dass kleinere Optimierungen kaum einen spürbaren Unterschied machten und das System insgesamt zuverlässig funktionierte. Die tatsächliche Anwendung bestätigte, dass auch unter leicht veränderten Bedingungen eine stabile Erkennung möglich war.
 
@@ -887,7 +887,7 @@ Dieser Ansatz erfordert zwar mehr Aufwand, da teils mehr optimiert wird als tats
 Als Alternative wurde der [Faster Objects, More Objects](https://docs.edgeimpulse.com/docs/edge-impulse-studio/learning-blocks/object-detection/fomo-object-detection-for-constrained-devices) (FOMO) Ansatz von Edge Impulse getestet. Hierbei handelt es sich um eine Art "Object detection lite", wodurch die ungefähre Position im Bild festgestellt und mehrere Objekte in einem Bild erkannt werden können. Der Leistungsbedarf bleibt klein genug für die Nutzung auf dem Nicla Vision.
 
 Er liefert etwas schlechtere Ergebnisse als die [Bilderkennung](https://docs.edgeimpulse.com/docs/edge-impulse-studio/learning-blocks/transfer-learning-images) (nicht optimiert). Auf der anderen Seite ist das Labeling deutlich aufwendiger, da die Objekte im Bild erst markiert werden müssen.
-![FOMO](img\Fomo.png)
+![FOMO](img/Fomo.png)
 Für dieses Projekt bietet es also aktuell keinen Vorteil. Sollen allerdings mehrere Objekte gleichzeitig erkannt werden oder die ungefähre Position im Bild wichtig ist, dann kann FOMO eine Alternative zu einer echten [Object detection](https://docs.edgeimpulse.com/docs/edge-impulse-studio/learning-blocks/object-detection/mobilenetv2-ssd-fpn) sein.
 
 
@@ -918,17 +918,17 @@ Zum einen gibt es nun auch im kostenlosen Plan die Möglichkeit, das Training mi
 Wichtig an dieser Stelle zu erwähnen ist, dass sich die Werte, die beim CPU-Training gut passten, nicht einfach auf die GPU übertragen lassen. In einem schnellen Test waren die Ergebnisse bei der GPU etwas schlechter:
 
 GPU 25 Epochen
-![GPU Training](img\GPUTrainig25Epochen.png)
+![GPU Training](img/GPUTrainig25Epochen.png)
 
 CPU 25 Epochen
-![CPU Training](img\TrainingCPUbspErgebniss.png)
+![CPU Training](img/TrainingCPUbspErgebniss.png)
 
 Während bei gleicher Epochenszahl das Training der CPU bei kleineren Epochen besser ist als bei der GPU.
 
 Man kann durch die Geschwindigkeit der GPU jedoch deutlich mehr Epochen in kurzer Zeit trainieren und damit die CPU-Qualität erneut übertreffen:
 
 GPU 200 Epochen
-![GPU 200 Epochen](img\GpuTraining200Epochen.png)
+![GPU 200 Epochen](img/GpuTraining200Epochen.png)
 
 Dieser kurze Test zeigt auf jeden Fall das Potenzial, hiermit auch die Robustheit des Modells gegen Störungen im Bild und Abweichungen besser zu machen und die Qualität der Bilder und Belichtung somit etwas verbessern zu können. Dieses Feature auch für Basisnutzer anzubieten ist eine wirkliche Neuheit, da hier leistungsstarke [Nvidia-Karten](https://www.nvidia.com/de-de/data-center/tesla-t4/) genutzt werden, die nicht jeder, der KI-Anwendungen mal testen möchte, auch zu Hause hat.
 
@@ -940,7 +940,7 @@ Using batch size: 128
 ```
 
 Die Größe des Modells wird dadurch übrigens nicht beeinflusst.
-![Größe des modells](img\SpeichergrößeGPUModell.png)
+![Größe des modells](img/SpeichergrößeGPUModell.png)
 
 Somit ist Edge Impulse nicht nur eine Plattform, die das Arbeiten mit KI durch eine GUI vereinfacht und für Edge-Devices optimiert, sondern sie bietet auch die Möglichkeit, KI-Modelle mit einer GPU zu trainieren und das ohne direkt dafür zahlen zu müssen.
 
