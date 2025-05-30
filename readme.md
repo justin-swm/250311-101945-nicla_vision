@@ -717,7 +717,7 @@ Die Softwareseite war hingegen relativ unkompliziert. Es ist jedoch zu beachten,
 
 In diesem Abschnitt soll das Vorgehen bei der Entwicklung des Impulses besprochen werden. Dabei soll insbesondere die Anwendung eines Rapid-Prototyping-Ansatzes betrachtet werden – also das schnelle Entwickeln vieler Versionen, die dann getestet und optimiert werden.
 
-![RapidProtoytping](img\RapidProtoytping.jpg)  
+![RapidProtoytping](img/RapidProtoytping.jpg)  
 [source](https://www.edgeimpulse.com/blog/getting-started-with-edge-impulse/)
 
 Edge Impulse selbst wirbt mit dieser Grafik, die die Schritte der Entwicklung eines Impulses zeigt. Die zyklische Form erinnert sofort an [Rapid Prototyping](https://miro.com/de/prototypen/was-ist-rapid-prototyping/). Die vier Phasen lassen sich, wie zu sehen, in das Datensammeln, Trainieren, Testen und Deployen unterteilen. Der [Deployment](#möglichkeiten-zum-deployen-des-impulses)-Abschnitt wurde bereits ausführlich behandelt, auch das [Training](#transfer-learning-modelle) wird an anderer Stelle genau besprochen. Hier soll es vor allem um das Verhältnis der einzelnen Teile zueinander gehen und wie daraus ein immer wiederkehrender Prozess wird. 
